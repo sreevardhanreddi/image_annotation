@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_content %}
+
+<div class="m-5"></div>
+
+<div class="text-center d-flex justify-content-center align-items-center">
+  <div class="container">
+    <div id="bbox_annotator" style="display:inline-block; width: 50%; height: 100vh;"></div>
+    <form action="" method="POST" id="form_post">
+      {% csrf_token %}
+      <input type="hidden" name="annotations" id="annotation_data">
+    </form>
+  </div>
+</div>
+<div class="m-5"></div>
+<div class="text-center container">
+  <button class="text-center btn btn-primary" id="submit_btn">Submit</button>
+</div>
+
+
+{% endblock body_content %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/bbox.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    console.log('doc ready')
+
+    // Initialize the bounding-box annotator.
+    var annotator = new BBoxAnnotator({
+      url: "{{image.image.url}}",
+      input_method: "select",
+      labels: ["car", "bike", "bus", "autorickshaw"],
+      onchange: function (entries) {
+        $("#annotation_data").val(JSON.stringify(entries));
+        console.log(JSON.stringify(entries, null, 4))
+      },
+      add_entries: [{
+        "left": 106,
+        "top": 90,
+        "width": 99,
+        "height": 97,
+        "label": "bike"
+    }]
+    });
+
+
+    $("#reset_button").click(function (e) {
+      annotator.clear_all();
+    })
+
+
+    $('#submit_btn').click(function(e) {
+      e.preventDefault()
+      $('#form_post').submit()
+      
+    })
+
+  });
+</script>
+{% endblock extra_scripts %}

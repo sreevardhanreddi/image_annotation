@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/dropzone.css' %}" />
+{% endblock extra_styles %}
+{% block body_content %}
+<div class="m-5"></div>
+<h2 class="text-center">Upload and Annotate images</h2>
+<div class="m-5"></div>
+<div class="container">
+  <form class="dropzone" id="upload" method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="fallback">
+      <input name="image" type="file" multiple accept="image/*" />
+    </div>
+  </form>
+
+  <div class="text-center">  
+    <button class="btn text-center btn-primary" id="submit_btn" type="submit">
+      Upload
+    </button>
+  </div>
+
+</div>
+{% endblock body_content %}
+{% block extra_scripts %}
+<script src="{% static 'js/dropzone.js' %}"></script>
+<script>
+
+  Dropzone.autoDiscover = false;
+
+  $(document).ready(function () {
+    console.log('doc ready')
+    var $dropzone = $("#upload").dropzone({
+      autoProcessQueue: false,
+      url: "/upload-images/",
+      method: "post",
+      paramName: "image",
+      maxFilesize: 2,
+      maxFiles: 10,
+      parallelUploads: 10,
+      dictDefaultMessage: "Drag an image here to upload, or click to select one",
+      acceptedFiles: "image/*",
+
+      init: function () {
+        var myDropzone = this;
+
+        $("#submit_btn").click(function (e) {
+          e.preventDefault();
+          myDropzone.processQueue();
+        });
+
+        this.on('sending', function (file, xhr, formData) {
+          var data = $('#upload').serializeArray();
+          $.each(data, function (key, el) {
+            formData.append(el.name, el.value);
+          });
+          setInterval(() => {
+            location.href = "/all-images/"
+          }, 500);
+        });
+      }
+
+    });
+
+  });
+</script>
+{% endblock extra_scripts %}

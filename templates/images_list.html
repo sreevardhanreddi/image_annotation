@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+<div class="" style="margin-top: 3em;"></div>
+<h3 class="text-center" style="margin-bottom: 1em;">Annotated Images</h3>
+<div class="row">
+  {% for image in annotated_images %}
+  <div class="col-3">
+    <a href="{% url 'annotate:view_annotations' image.id %}">
+      <img class="z-depth-2 m-2" src="{{ image.image.url }}" alt="image.url" srcset="" style="width: 100%; height: 16em;">
+    </a>
+  </div>
+  {% empty %}
+    <p class="text-center mx-auto">
+      No images, Upload Images to annotate, upload <a href="{% url 'annotate:upload_images' %}">here</a>
+    </p>  
+  {% endfor %}
+</div>
+
+<div class="" style="margin-top: 3em;"></div>
+<h3 class="text-center" style="margin-bottom: 1em;">Non Annotated Images</h3>
+<div class="row">
+  {% for image in non_annotated_images %}
+  <div class="col-3">
+    <a href="{% url 'annotate:annotate_image' image.id %}">
+      <img class="z-depth-2 m-2" src="{{ image.image.url }}" alt="image.url" srcset="" style="width: 100%; height: 16em;">
+    </a>
+  </div>
+  {% empty %}
+    <p class="text-center mx-auto">
+      No images, Upload Images to annotate, upload <a href="{% url 'annotate:upload_images' %}">here</a>
+    </p>  
+  {% endfor %}
+</div>
+
+{% endblock body_content %}

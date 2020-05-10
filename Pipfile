@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+
+[packages]
+asgiref = "==3.2.7"
+django-debug-toolbar = "==2.2"
+django-extensions = "==2.2.9"
+pytz = "==2020.1"
+six = "==1.14.0"
+sqlparse = "==0.3.1"
+Django = "==3.0.6"
+Pillow = "==7.1.2"
+
+[requires]
+python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
