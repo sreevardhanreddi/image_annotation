@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+        
+<div class="m-5"></div>
+<div class="container">
+    <div class="container">
+        
+        {% for project in projects %}
+        <div class="card p-4 m-4">
+
+            <h4>Project Name : {{project.name}}</h4>
+            <h4>Total Images in the project : {{project.get_images_count}}</h4>
+            <h4>Created By : {{project.created_by}}</h4>
+            <h4>Created on : {{project.created_at}}</h4>
+            
+
+            <a href="{% url 'annotate:view_project_images' project.id %}">View all project related images</a>
+        </div>
+
+
+        {% empty %}
+        <h3 class="text-center">No projects</h3>
+        {% endfor %}
+            
+    </div>
+</div>
+
+{% endblock body_content %}
