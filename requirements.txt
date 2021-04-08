@@ -1,8 +1,9 @@
+-i https://pypi.org/simple/
 asgiref==3.2.7
-Django==3.0.6
 django-debug-toolbar==2.2
 django-extensions==2.2.9
-Pillow==7.1.2
+django==3.0.14
+pillow==7.1.2
 pytz==2020.1
 six==1.14.0
 sqlparse==0.3.1
