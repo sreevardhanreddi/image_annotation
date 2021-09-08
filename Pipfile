@@ -14,7 +14,7 @@ pytz = "==2020.1"
 six = "==1.14.0"
 sqlparse = "==0.3.1"
 Django = "==3.0.6"
-Pillow = "==7.1.2"
+Pillow = "==8.3.2"
 
 [requires]
 python_version = "3.6"
